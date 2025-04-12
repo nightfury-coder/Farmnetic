@@ -7,6 +7,7 @@ import 'regenerator-runtime/runtime';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { Line } from 'react-chartjs-2';
 import Header from './header/header.jsx'
+import { useRouter } from 'next/router';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -152,6 +153,16 @@ function Dashboard() {
       }, 1500);
     }
   };
+  const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && file.type.startsWith('video/')) {
+      setSelectedVideo(file);
+      console.log("Video uploaded:", file.name);
+    } else {
+      alert('Please upload a valid video file.');
+    }
+  };
+  
 
   const handleDroneControl = () => {
     setShowDroneView(!showDroneView);
@@ -226,6 +237,7 @@ function Dashboard() {
             <p className="text-3xl font-bold text-gray-900">{mockData.growthProgress}%</p>
           </div>
         </div>
+        
 
         {/* Seasonal Recommendations */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
@@ -272,6 +284,7 @@ function Dashboard() {
               <Drone size={24} />
               <span>Start Drone Patrol</span>
             </button>
+            
             <button
               onClick={() => {}}
               className="flex items-center justify-center space-x-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
@@ -317,6 +330,7 @@ function Dashboard() {
               </label>
             </div>
           </div>
+          
           {diseaseDetected && (
             <div className="mt-4 p-4 bg-red-50 rounded-lg">
               <h3 className="text-lg font-semibold text-red-700">⚠️ Disease Detected: Leaf Blight</h3>
@@ -373,18 +387,30 @@ function Dashboard() {
         <div id="contact" className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Emergency Contacts</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button className="flex items-center justify-center space-x-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors">
-              <Phone size={24} />
-              <span>Agriculture Officer</span>
-            </button>
-            <button className="flex items-center justify-center space-x-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
-              <Phone size={24} />
-              <span>Plant Doctor</span>
-            </button>
-            <button className="flex items-center justify-center space-x-2 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors">
-              <Phone size={24} />
-              <span>Support</span>
-            </button>
+            {/* Approximately line 403 */}
+            <button
+ onClick={() => navigate("/AgricultureOfficer")}
+  className="flex items-center justify-center space-x-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+>
+  <Phone size={24} />
+  <span>Agriculture Officer</span>
+</button>
+            {/* Approximately line 409 */}
+            <button
+  onClick={() => router.push('/plantdoctor')}
+  className="flex items-center justify-center space-x-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+>
+  <Phone size={24} />
+  <span>Plant Doctor</span>
+</button>
+            {/* Approximately line 415 */}
+            <button
+  onClick={() => router.push('/support')}
+  className="flex items-center justify-center space-x-2 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+>
+  <Phone size={24} />
+  <span>Support</span>
+</button>
           </div>
         </div>
 
