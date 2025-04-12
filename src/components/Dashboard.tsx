@@ -153,16 +153,6 @@ function Dashboard() {
       }, 1500);
     }
   };
-  const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file && file.type.startsWith('video/')) {
-      setSelectedVideo(file);
-      console.log("Video uploaded:", file.name);
-    } else {
-      alert('Please upload a valid video file.');
-    }
-  };
-  
 
   const handleDroneControl = () => {
     setShowDroneView(!showDroneView);
@@ -277,14 +267,13 @@ function Dashboard() {
         <div id="detect" className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Drone Control</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button
-              onClick={handleDroneControl}
-              className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-            >
+          <button
+      onClick={() => window.open("https://drive.google.com/file/d/1lkHAJLXP-KJa5pJqK-PiHrqtq3hcxBgQ/view?usp=drivesdk", '_blank')}
+      style={{ padding: '10px 20px', background: 'blue', color: 'white', border: 'none', borderRadius: '5px' }}
+    >
               <Drone size={24} />
               <span>Start Drone Patrol</span>
             </button>
-            
             <button
               onClick={() => {}}
               className="flex items-center justify-center space-x-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
@@ -330,7 +319,6 @@ function Dashboard() {
               </label>
             </div>
           </div>
-          
           {diseaseDetected && (
             <div className="mt-4 p-4 bg-red-50 rounded-lg">
               <h3 className="text-lg font-semibold text-red-700">⚠️ Disease Detected: Leaf Blight</h3>
